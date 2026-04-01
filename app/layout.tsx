@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
 import { LoadingScreen } from "@/components/loading-screen"
 import { Providers } from "./providers"
 import "./globals.css"
@@ -109,6 +110,7 @@ export default function RootLayout({
       <body className={`font-sans ${plusJakarta.variable} ${heading.variable}`}>
         <LoadingScreen />
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   )
