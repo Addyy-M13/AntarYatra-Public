@@ -233,8 +233,8 @@ export default function MindspacePage() {
                     <AnimatePresence>
                       {messages.map((msg, i) => (
                         <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                          className={`flex mb-4 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                          <div className={`max-w-[85%] sm:max-w-[70%] rounded-2xl px-4 py-3 text-sm leading-relaxed break-words overflow-hidden ${
+                          className={`flex mb-4 w-full ${msg.role === "user" ? "justify-end" : "justify-start"} pr-2`}>
+                          <div className={`max-w-xs sm:max-w-sm rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                             msg.role === "user"
                               ? "bg-primary text-primary-foreground rounded-br-sm"
                               : "bg-emerald-500/10 border border-emerald-500/20 text-foreground rounded-bl-sm"
@@ -245,7 +245,7 @@ export default function MindspacePage() {
                                 <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">CBT Companion</span>
                               </div>
                             )}
-                            <p className="whitespace-pre-wrap break-words">{msg.content}</p>
+                            <p className="break-words whitespace-pre-wrap">{msg.content}</p>
                           </div>
                         </motion.div>
                       ))}
