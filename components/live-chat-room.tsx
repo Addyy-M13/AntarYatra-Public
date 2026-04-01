@@ -325,7 +325,7 @@ export function LiveChatRoom() {
 
       const { data, error } = await supabase
         .from("chat_messages")
-        .insert([messageData])
+        .insert([messageData] as any)
         .select()
 
       if (error) {
@@ -417,7 +417,7 @@ export function LiveChatRoom() {
       if (newAchievements.length > 0) {
         await supabase
           .from("user_achievements")
-          .insert(newAchievements)
+          .insert(newAchievements as any)
 
         // Award points
         const totalPoints = newAchievements.reduce((sum, a) => sum + a.points_earned, 0)
