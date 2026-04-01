@@ -79,13 +79,13 @@ export async function POST(request: NextRequest) {
     // 5. Database operation with RLS enforced
     const { data, error } = await supabaseClient
       .from('chat_messages')
-      .insert({
+      .insert([{
         user_id: user.id,
         username: user.user_metadata?.username || 'Anonymous',
         message: message,
         room_id: body.roomId || null,
         is_public: body.isPublic !== false,
-      })
+      }] as any)
       .select();
 
     if (error) {
@@ -133,7 +133,14 @@ export async function GET(request: NextRequest) {
     }
 
     const token = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    const supabaseClient = getSupabaseClient();
+    if (!supabaseClient) {
+      return NextResponse.json(
+        { error: 'Service unavailable' },
+        { status: 503 }
+      );
+    }
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
 
     if (authError || !user) {
       return NextResponse.json(
@@ -143,7 +150,7 @@ export async function GET(request: NextRequest) {
     }
 
     // 3. Query with RLS (only returns user's accessible data)
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('chat_messages')
       .select('id, username, message, created_at, room_id')
       .limit(50)

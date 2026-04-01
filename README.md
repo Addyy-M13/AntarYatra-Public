@@ -39,7 +39,7 @@ AntarYatra is a comprehensive mental health and wellness platform designed to ma
 - **Styling**: Tailwind CSS v4.1.9
 - **Animations**: Framer Motion
 - **Backend**: Supabase (PostgreSQL + Auth)
-- **AI Integration**: Claude API via OpenRouter
+- **AI Integration**: API via OpenRouter
 - **Real-time Chat**: Supabase Realtime
 - **Language**: TypeScript 5
 - **Testing**: Vitest

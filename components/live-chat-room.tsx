@@ -431,10 +431,10 @@ export function LiveChatRoom() {
         if (profile) {
           await supabase
             .from("profiles")
-            .update({ 
+            .update({
               total_points: (profile.total_points || 0) + totalPoints,
               updated_at: new Date().toISOString()
-            })
+            } as any)
             .eq("id", currentUser.id)
         }
 
