@@ -7,7 +7,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { rateLimit } from '@/lib/security/rate-limit';
-import { chatMessageSchema } from '@/lib/security/validation';
+import { chatMessageSchemaServer } from '@/lib/security/validation-server';
 import { createClient } from '@supabase/supabase-js';
 
 // Lazy-initialize supabase client only when actually needed
@@ -65,8 +65,8 @@ export async function POST(request: NextRequest) {
     // 3. Parse and validate request body
     const body = await request.json();
 
-    // Validate message using schema
-    const message = await chatMessageSchema.parseAsync(body.message);
+    // Validate message using server-safe schema
+    const message = await chatMessageSchemaServer.parseAsync(body.message);
 
     // 4. Verify data ownership (user can only create their own messages)
     if (body.userId !== user.id) {
